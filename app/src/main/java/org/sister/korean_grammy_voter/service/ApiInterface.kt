@@ -13,7 +13,7 @@ interface ApiInterface {
         "Accept: application/json",
         "Content-Type: application/json"
     )
-
+    //interface untuk melakukan method voteNominations dengan notasi POST
     @POST("/")
     fun voteNominations(@Body body : JsonObject): Call<VoteResponse>
 }

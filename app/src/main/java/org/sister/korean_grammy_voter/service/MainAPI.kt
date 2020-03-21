@@ -13,10 +13,13 @@ import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
 class MainAPI :Application(){
+    //inisialisasi socket dari library Socket.io
     lateinit var socket: Socket
+    //inisialisasi URL dari server
     companion object{
         const val URL = "http://192.168.43.115:8080/"
     }
+    //inisialisasi library retrofit guna mengambil data dari server
     private val client = OkHttpClient().newBuilder()
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = if (BuildConfig.DEBUG)
@@ -30,8 +33,9 @@ class MainAPI :Application(){
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+    //memasangkan ApiInterface yang didalamnya terdapat method RPC ke retrofit
     val service : ApiInterface = retrofit.create(ApiInterface :: class.java)
-
+    //inisialisasi/integrasi socket dengan url server dengan kembalian socket yang telah terintegrasi
     fun getSocketInstance() : Socket {
         try {
             socket = IO.socket(URL)
